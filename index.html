@@ -25,19 +25,23 @@
   </style>
 </head>
 <body>
-  <video id="rickvid" autoplay muted playsinline>
-    <source src="rickroll.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
+  <video id="rickvid" autoplay playsinline muted>
+  <source src="rickroll.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
-  <script>
-    // Unmute and play after load
-    const video = document.getElementById("rickvid");
-    video.muted = false;
-    video.play().catch((e) => {
-      // fallback if browser blocks it
-      console.log("Autoplay blocked. User interaction needed.");
-    });
-  </script>
+<script>
+  const video = document.getElementById("rickvid");
+
+  // Unmute *after* autoplay is safely triggered
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      video.muted = false;
+      video.play().catch((e) => {
+        console.warn("Autoplay blocked:", e);
+      });
+    }, 500); // delay gives browser time to buffer & settle
+  });
+</script>
 </body>
 </html>
