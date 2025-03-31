@@ -19,7 +19,14 @@
   height: 100vh;
   background: url('fakepage.png') no-repeat center top;
   background-size: cover;
-  background-position-y: 1px; /* this is the new line */
+  background-position-y: 1px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    background-image: url('mobilepage.png');
+    background-position-y: 0;
+  }
 }
 
     .play-overlay {
