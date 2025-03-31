@@ -28,19 +28,34 @@
   <video id="rickvid" autoplay playsinline muted>
   <source src="rickroll.mp4" type="video/mp4">
   Your browser does not support the video tag.
+<video id="rickvid" autoplay muted playsinline>
+  <source src="rickroll.mp4" type="video/mp4">
 </video>
 
 <script>
   const video = document.getElementById("rickvid");
 
-  // Unmute *after* autoplay is safely triggered
   window.addEventListener("load", () => {
+    // Wait a moment to let it start muted
     setTimeout(() => {
+      // Try to unmute and resume play
       video.muted = false;
-      video.play().catch((e) => {
-        console.warn("Autoplay blocked:", e);
-      });
-    }, 500); // delay gives browser time to buffer & settle
+      const playPromise = video.play();
+
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            // success!
+            console.log("Video is playing with sound.");
+          })
+          .catch((error) => {
+            // fallback: force play muted
+            console.warn("Autoplay with sound blocked, falling back to muted.");
+            video.muted = true;
+            video.play();
+          });
+      }
+    }, 800); // Slightly longer delay helps trick browser
   });
 </script>
 </body>
