@@ -1,105 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Exploring Tellia | Roblox</title>
-  <meta property="og:title" content="Exploring Tellia BETA" />
-  <meta property="og:description" content="An immersive mountaineering experience. Traverse glacial terrain, scale cliffs, and endure the elements." />
-  <meta property="og:image" content="https://i.imgur.com/lVufQWV.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body {
+    html, body {
       margin: 0;
+      padding: 0;
+      background-color: black;
       font-family: Arial, sans-serif;
-      background-color: #1e1e1e;
-      color: white;
+      overflow: hidden;
     }
 
-    /* TOP BAR */
-    .topbar {
-      background-color: #181818;
-      padding: 0.5rem 2rem;
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-    }
-
-    .topbar a {
-      color: #ccc;
-      text-decoration: none;
-      font-size: 0.9rem;
-    }
-
-    .topbar img.logo {
-      height: 30px;
-    }
-
-    .topbar .right {
-      margin-left: auto;
-    }
-
-    .topbar .gear {
-      height: 24px;
-      filter: invert(100%);
-      cursor: pointer;
-    }
-
-    /* SIDEBAR */
-    .sidebar {
-      width: 200px;
-      background-color: #111;
-      padding: 1rem;
-      position: fixed;
-      top: 48px;
-      bottom: 0;
-      left: 0;
-    }
-
-    .sidebar a {
-      display: block;
-      color: #ccc;
-      text-decoration: none;
-      margin-bottom: 1rem;
-      font-size: 0.95rem;
-    }
-
-    /* MAIN CONTENT */
-    .main {
-      margin-left: 220px;
-      padding: 2rem;
-    }
-
-    .thumbnail {
-      width: 100%;
-      max-width: 640px;
-      height: 360px;
-      background-image: url('https://i.imgur.com/lVufQWV.png');
+    .container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      background: url('fakepage.png') no-repeat center center;
       background-size: cover;
-      background-position: center;
-      border-radius: 10px;
-      margin-bottom: 1rem;
     }
 
-    .title {
-      font-size: 1.75rem;
-      font-weight: bold;
-    }
-
-    .desc {
-      margin-top: 0.5rem;
-      color: #ccc;
-      max-width: 640px;
-    }
-
-    .play-button {
-      margin-top: 1.5rem;
-      padding: 1rem 2rem;
-      font-size: 1.5rem;
-      font-weight: bold;
-      background-color: #00b06b;
-      border: none;
-      border-radius: 8px;
+    .play-overlay {
+      position: absolute;
+      left: 66%;
+      top: 42%;
+      width: 140px;
+      height: 60px;
       cursor: pointer;
+      z-index: 10;
     }
 
     #main {
@@ -118,45 +47,10 @@
   </style>
 </head>
 <body>
-
-  <!-- TOP BAR -->
-  <div class="topbar">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/4/48/Roblox_Logo_2022.svg" alt="Roblox" class="logo">
-    <a href="#">Home</a>
-    <a href="#">Discover</a>
-    <a href="#">Marketplace</a>
-    <a href="#">Create</a>
-    <div class="right">
-      <img src="https://cdn-icons-png.flaticon.com/512/3524/3524659.png" alt="Settings" class="gear">
-    </div>
+  <div class="container" id="info">
+    <div class="play-overlay" id="launch"></div>
   </div>
 
-  <!-- SIDEBAR -->
-  <div class="sidebar">
-    <a href="#">Profile</a>
-    <a href="#">Messages</a>
-    <a href="#">Friends</a>
-    <a href="#">Avatar</a>
-    <a href="#">Inventory</a>
-    <a href="#">Trade</a>
-    <a href="#">Premium</a>
-    <a href="#">Blog</a>
-  </div>
-
-  <!-- GAME PAGE -->
-  <div class="main" id="info">
-    <div class="thumbnail"></div>
-    <div class="title">Exploring Tellia BETA</div>
-    <div class="desc">
-      Welcome to Tellia adventurer! 🧗‍♂️<br><br>
-      Traverse dangerous terrain, scale icy cliffs, and overcome harsh weather to reach the summit. Solo or with a team, the challenge awaits.<br><br>
-      ⚠️ Climbing Difficulty: EXTREME<br>
-      🏔️ Team: Alpine Ascents
-    </div>
-    <button class="play-button" id="launch">Play</button>
-  </div>
-
-  <!-- RICKROLL -->
   <div id="main">
     <video id="rickvid" autoplay muted loop playsinline>
       <source src="rickroll.mp4" type="video/mp4">
@@ -184,5 +78,8 @@
         .catch(err => console.error("Audio failed:", err));
     });
   </script>
+</body>
+</html>
+
 </body>
 </html>
