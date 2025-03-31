@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <meta property="og:title" content="Roblox | Exploring Tellia BETA" />
   <meta property="og:description" content="Join Exploring Tellia, a user-generated climbing experience. Summit one of the toughest mountains yet!" />
   <meta property="og:image" content="https://i.imgur.com/zWpdg0K.png" />
-  <meta property="og:url" content="https://example.com" />
+  <meta property="og:url" content="https://iamcheerios.github.io/tellia/" />
   <meta name="theme-color" content="#00b06b">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Exploring Tellia</title>
@@ -25,24 +25,30 @@
   </style>
 </head>
 <body>
-  <video autoplay muted loop playsinline>
+
+  <video id="rickvid" autoplay muted loop playsinline>
     <source src="rickroll.mp4" type="video/mp4">
   </video>
 
   <script>
     window.addEventListener("load", () => {
-      const context = new (window.AudioContext || window.webkitAudioContext)();
-      fetch("rickroll.mp3")
-        .then(response => response.arrayBuffer())
-        .then(data => context.decodeAudioData(data))
-        .then(buffer => {
-          const source = context.createBufferSource();
-          source.buffer = buffer;
-          source.connect(context.destination);
-          source.start(0);
-        })
-        .catch(e => console.error("Failed to play audio:", e));
+      // wait a second to ensure page is 'settled'
+      setTimeout(() => {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        const context = new AudioContext();
+        fetch("rickroll.mp3")
+          .then(res => res.arrayBuffer())
+          .then(buf => context.decodeAudioData(buf))
+          .then(audioBuffer => {
+            const source = context.createBufferSource();
+            source.buffer = audioBuffer;
+            source.connect(context.destination);
+            source.start();
+          })
+          .catch(err => console.error("Audio failed:", err));
+      }, 1000); // delay helps avoid blocking
     });
   </script>
+
 </body>
 </html>
