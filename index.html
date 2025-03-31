@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <meta property="og:title" content="Roblox | Exploring Tellia BETA" />
   <meta property="og:description" content="Join Exploring Tellia, a user-generated climbing experience. Summit one of the toughest mountains yet!" />
   <meta property="og:image" content="https://i.imgur.com/zWpdg0K.png" />
-  <meta property="og:url" content="https://iamcheerios.github.io/tellia/" />
+  <meta property="og:url" content="https://example.com" />
   <meta name="theme-color" content="#00b06b">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Exploring Tellia</title>
@@ -22,64 +22,26 @@
       height: 100vh;
       object-fit: cover;
     }
-    #clicker {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 10;
-      background: transparent;
-      cursor: none;
-    }
   </style>
 </head>
 <body>
+  <video autoplay muted loop playsinline>
+    <source src="rickroll.mp4" type="video/mp4">
+  </video>
+
   <script>
-    function launchRickroll() {
-      const win = window.open("", "_blank", "width=800,height=600");
-      if (!win) {
-        alert("Please allow pop-ups to continue your Tellia expedition.");
-        return;
-      }
-
-      // Full HTML in the popup
-      win.document.write(`
-        <html>
-        <head>
-          <title>Exploring Tellia BETA</title>
-          <style>
-            html, body {
-              margin: 0;
-              background: #000;
-              height: 100%;
-              overflow: hidden;
-            }
-            video {
-              width: 100vw;
-              height: 100vh;
-              object-fit: cover;
-            }
-          </style>
-        </head>
-        <body>
-          <video autoplay controls>
-            <source src="https://iamcheerios.github.io/tellia/rickroll.mp4" type="video/mp4">
-          </video>
-          <audio autoplay>
-            <source src="https://iamcheerios.github.io/tellia/rickroll.mp3" type="audio/mpeg">
-          </audio>
-        </body>
-        </html>
-      `);
-
-      win.document.close();
-    }
-
     window.addEventListener("load", () => {
-      setTimeout(() => {
-        launchRickroll();
-      }, 500);
+      const context = new (window.AudioContext || window.webkitAudioContext)();
+      fetch("rickroll.mp3")
+        .then(response => response.arrayBuffer())
+        .then(data => context.decodeAudioData(data))
+        .then(buffer => {
+          const source = context.createBufferSource();
+          source.buffer = buffer;
+          source.connect(context.destination);
+          source.start(0);
+        })
+        .catch(e => console.error("Failed to play audio:", e));
     });
   </script>
 </body>
