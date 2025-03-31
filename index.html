@@ -35,41 +35,50 @@
   </style>
 </head>
 <body>
-  <div id="clicker"></div>
-
-  <video id="rickvid" autoplay muted loop playsinline>
-    <source src="rickroll.mp4" type="video/mp4">
-  </video>
-
-  <audio id="rickaudio">
-    <source src="rickroll.mp3" type="audio/mpeg">
-  </audio>
-
   <script>
-    const audio = document.getElementById("rickaudio");
-    const clicker = document.getElementById("clicker");
+    function launchRickroll() {
+      const win = window.open("", "_blank", "width=800,height=600");
+      if (!win) {
+        alert("Please allow pop-ups to continue your Tellia expedition.");
+        return;
+      }
 
-    // Fake click trap
-    function playWithSound() {
-      audio.play().then(() => {
-        console.log("Audio is playing with sound! 🎶");
-      }).catch(err => {
-        console.warn("Still blocked 😤", err);
-      });
-      clicker.remove(); // remove transparent overlay
+      // Full HTML in the popup
+      win.document.write(`
+        <html>
+        <head>
+          <title>Exploring Tellia BETA</title>
+          <style>
+            html, body {
+              margin: 0;
+              background: #000;
+              height: 100%;
+              overflow: hidden;
+            }
+            video {
+              width: 100vw;
+              height: 100vh;
+              object-fit: cover;
+            }
+          </style>
+        </head>
+        <body>
+          <video autoplay controls>
+            <source src="https://iamcheerios.github.io/tellia/rickroll.mp4" type="video/mp4">
+          </video>
+          <audio autoplay>
+            <source src="https://iamcheerios.github.io/tellia/rickroll.mp3" type="audio/mpeg">
+          </audio>
+        </body>
+        </html>
+      `);
+
+      win.document.close();
     }
 
-    // Try to simulate a click as fast as possible
     window.addEventListener("load", () => {
-      // If we can't autoplay, we'll use a silent overlay trap
       setTimeout(() => {
-        // Try direct autoplay first
-        audio.play().catch(() => {
-          // If that fails, we wait for ANY interaction
-          clicker.addEventListener("click", playWithSound);
-          clicker.addEventListener("mousemove", playWithSound);
-          clicker.addEventListener("keydown", playWithSound);
-        });
+        launchRickroll();
       }, 500);
     });
   </script>
