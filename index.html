@@ -2,53 +2,98 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <title>Roblox | Exploring Tellia BETA</title>
   <meta property="og:title" content="Roblox | Exploring Tellia BETA" />
-  <meta property="og:description" content="Join Exploring Tellia, a user-generated climbing experience. Summit one of the toughest mountains yet!" />
+  <meta property="og:description" content="An immersive climbing experience from Alpine Ascents." />
   <meta property="og:image" content="https://i.imgur.com/zWpdg0K.png" />
-  <meta property="og:url" content="https://iamcheerios.github.io/tellia/" />
-  <meta name="theme-color" content="#00b06b">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Exploring Tellia</title>
   <style>
-    html, body {
+    body {
       margin: 0;
-      padding: 0;
-      background: #000;
-      height: 100%;
-      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background-color: #1e1e1e;
+      color: white;
+    }
+    .page {
+      max-width: 1000px;
+      margin: auto;
+      padding: 2rem;
+    }
+    .thumbnail {
+      width: 100%;
+      height: 400px;
+      background-image: url('https://i.imgur.com/zWpdg0K.png');
+      background-size: cover;
+      background-position: center;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+    }
+    .title {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+    .desc {
+      margin-top: 0.5rem;
+      color: #ccc;
+    }
+    .play-button {
+      margin-top: 1.5rem;
+      padding: 1rem 2rem;
+      font-size: 1.5rem;
+      font-weight: bold;
+      background-color: #00b06b;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    #main {
+      display: none;
     }
     video {
       width: 100vw;
       height: 100vh;
       object-fit: cover;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 100;
     }
   </style>
 </head>
 <body>
+  <div class="page" id="info">
+    <div class="thumbnail"></div>
+    <div class="title">Exploring Tellia BETA</div>
+    <div class="desc">An immersive mountaineering experience. Traverse glacial terrain, scale cliffs, and endure the elements. Made by Alpine Ascents.</div>
+    <button class="play-button" id="launch">Play</button>
+  </div>
 
-  <video id="rickvid" autoplay muted loop playsinline>
-    <source src="rickroll.mp4" type="video/mp4">
-  </video>
+  <div id="main">
+    <video id="rickvid" autoplay muted loop playsinline>
+      <source src="rickroll.mp4" type="video/mp4">
+    </video>
+  </div>
 
   <script>
-    window.addEventListener("load", () => {
-      // wait a second to ensure page is 'settled'
-      setTimeout(() => {
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        const context = new AudioContext();
-        fetch("rickroll.mp3")
-          .then(res => res.arrayBuffer())
-          .then(buf => context.decodeAudioData(buf))
-          .then(audioBuffer => {
-            const source = context.createBufferSource();
-            source.buffer = audioBuffer;
-            source.connect(context.destination);
-            source.start();
-          })
-          .catch(err => console.error("Audio failed:", err));
-      }, 1000); // delay helps avoid blocking
+    const button = document.getElementById("launch");
+    button.addEventListener("click", () => {
+      document.getElementById("info").style.display = "none";
+      document.getElementById("main").style.display = "block";
+
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      const context = new AudioContext();
+
+      fetch("rickroll.mp3")
+        .then(res => res.arrayBuffer())
+        .then(buf => context.decodeAudioData(buf))
+        .then(audioBuffer => {
+          const source = context.createBufferSource();
+          source.buffer = audioBuffer;
+          source.connect(context.destination);
+          source.start();
+        })
+        .catch(err => console.error("Audio failed:", err));
     });
   </script>
-
 </body>
 </html>
